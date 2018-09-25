@@ -18,14 +18,12 @@ const fetchProductsFailure = error => ({
 export const fetchProducts = () => {
   return dispatch => {
     dispatch(fetchProductsBegin())
-    // return axios.get('https://api.myjson.com/bins/10ywg4')
     return axios.get('products.json')
       .then(json => {
-        // dispatch(fetchProductsSuccess(json.data))
-        dispatch(fetchProductsSuccess(json.data.products))
+        console.log(json.data)
+        dispatch(fetchProductsSuccess(json.data))
         return json.data
       })
       .catch(error => dispatch(fetchProductsFailure(error)))
   }
-
 }

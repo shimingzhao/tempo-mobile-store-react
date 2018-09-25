@@ -1,15 +1,15 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
 import products_reducer from '../reducers/fetchProductsReducer'
-import orders_reducer from '../reducers/ordersReducer';
-import order_reducer from '../reducers/orderReducer'
+import cart_reducer from '../reducers/shoppingCartReducer';
+import filter_reducer from '../reducers/filterReducer'
 import thunk from 'redux-thunk'
 
 const initialState = {}
 
 const rootReducer = combineReducers({
   products_stuff: products_reducer,
-  orders_stuff: orders_reducer,
-  order_stuff: order_reducer,
+  cart_stuff: cart_reducer,
+  filter_stuff: filter_reducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
