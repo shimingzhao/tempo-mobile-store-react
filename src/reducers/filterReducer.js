@@ -1,10 +1,18 @@
 import * as types from '../constants/actionTypes'
 
 const initialState = {
-  manufacturer: '',
-  storage: 0,
-  os: '',
-  camera: 0
+  manufacturer: [],
+  storage: [],
+  os: [],
+  camera: []
+}
+
+const toggleCheckbox = (filters, label) => {
+  if (!filters.includes(label)) {
+    filters.push(label)
+  } else {
+    filters.filter(existLabel => label !== existLabel)
+  }
 }
 
 export default function filterReducer (state = initialState, action) {
@@ -12,30 +20,33 @@ export default function filterReducer (state = initialState, action) {
     case types.MANUFACTURER_FILTER:
       return {
         ...state,
-        manufacturer: action.payload,
+        manufacturer: [...toggleCheckbox(state.manufacturer, action.payload)],
       }
+
     case types.SCREENSIZE_FILTER:
       return {
         ...state,
-        storage: action.payload,
+        storage: [...toggleCheckbox(state.storage, action.payload)],
       }
+
     case types.OS_FILTER:
       return {
         ...state,
-        os: action.payload,
+        os: [...toggleCheckbox(state.os, action.payload)],
       }
+
     case types.CAMERA_FILTER:
       return {
         ...state,
-        camera: action.payload,
+        camera: [...toggleCheckbox(state.camera, action.payload)],
       }
 
     case types.CLEAR_FILTER:
       return {
-        manufacturer: '',
-        storage: 0,
-        os: '',
-        camera: 0
+        manufacturer: [],
+        storage: [],
+        os: [],
+        camera: []
       }
 
     default:
