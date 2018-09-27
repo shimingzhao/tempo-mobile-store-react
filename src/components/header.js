@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const Header = () => {
+const HeaderBar = () => {
   return (
     <header className="compact">
       <h2 className="tempo"><a href="http://tempo.io/">Back to Tempo's website</a></h2>
@@ -9,4 +9,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderBar
