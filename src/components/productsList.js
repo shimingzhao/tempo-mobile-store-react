@@ -10,7 +10,6 @@ class ProductsList extends Component {
 
   render() {
     const {products} = this.props
-    console.log(products)
     return (
       <ul className="products-list">
         {products.map(item => {
