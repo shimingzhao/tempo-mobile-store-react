@@ -1,44 +1,50 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { ManufacturerFilter, ScreenSizeFilter, osFilter, cameraFilter } from '../actions/filterActions'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {ManufacturerFilter, ScreenSizeFilter, osFilter, cameraFilter} from '../actions/filterActions'
 
 class Checkbox extends Component {
-  state = {
-    isChecked: false,
+  constructor() {
+    super();
+    this.state = {isChecked: false};
+    this.handleChecked = this.handleChecked.bind(this);
   }
 
-  toggleCheckboxChange = () => {
-    const {ManufacturerFilter, ScreenSizeFilter, osFilter, cameraFilter, label, flag} = this.props
-    this.setState({isChecked: !this.state.isChecked})
-    // switch (flag) {
-    //   case 'manufacturer':
-    //     return ManufacturerFilter(label)
-    //     break
-    //   case 'storage':
-    //     return ScreenSizeFilter(label)
-    //     break
-    //   case 'os':
-    //     return osFilter(label)
-    //     break
-    //   case 'camera':
-    //     return cameraFilter(label)
-    //     break
-    // }
+    handleChecked = () => {
+        this.setState({isChecked: !this.state.isChecked})
+      console.log('fire')
+  // switch (flag) {
+  //   case 'manufacturer':
+  //     return ManufacturerFilter(label)
+  //     break
+  //   case 'storage':
+  //     return ScreenSizeFilter(label)
+  //     break
+  //   case 'os':
+  //     return osFilter(label)
+  //     break
+  //   case 'camera':
+  //     return cameraFilter(label)
+  //     break
+  // }
   }
 
 
-  render () {
+  render() {
     const {label} = this.props
-    const { isChecked } = this.state;
+    if (this.state.isChecked) {
+      console.log('checked')
+    } else {
+      console.log('unchecked')
+    }
     return (
       <label>
         <input
           name={label}
           type="checkbox"
           value={label}
-          checked={isChecked}
-          onChange={this.toggleCheckboxChange}
+          checked={this.state.isChecked}
+          onChange={this.handleChecked}
         />
         {label}
       </label>
