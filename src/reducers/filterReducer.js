@@ -17,28 +17,53 @@ const toggleCheckbox = (filters, label) => {
 
 export default function filterReducer (state = initialState, action) {
   switch (action.type) {
-    case types.MANUFACTURER_FILTER:
+    case types.MANUFACTURER_FILTER_ADD:
+      console.log(typeof (state.manufacturer))
       return {
         ...state,
-        manufacturer: [...toggleCheckbox(state.manufacturer, action.payload)],
+        manufacturer: state.manufacturer.add(action.payload),
       }
 
-    case types.SCREENSIZE_FILTER:
+    case types.MANUFACTURER_FILTER_REMOVE:
       return {
         ...state,
-        storage: [...toggleCheckbox(state.storage, action.payload)],
+        manufacturer: state.manufacturer.filter(existItem => existItem !== action.payload),
       }
 
-    case types.OS_FILTER:
+    case types.SCREENSIZE_FILTER_ADD:
       return {
         ...state,
-        os: [...toggleCheckbox(state.os, action.payload)],
+        storage: state.storage.add(action.payload),
       }
 
-    case types.CAMERA_FILTER:
+    case types.SCREENSIZE_FILTER_REMOVE:
       return {
         ...state,
-        camera: [...toggleCheckbox(state.camera, action.payload)],
+        storage: state.storage.filter(existItem => existItem !== action.payload),
+      }
+
+    case types.OS_FILTER_ADD:
+      return {
+        ...state,
+        os: state.os.push(action.payload),
+      }
+
+    case types.OS_FILTER_REMOVE:
+      return {
+        ...state,
+        os: state.os.filter(existItem => existItem !== action.payload),
+      }
+
+    case types.CAMERA_FILTER_ADD:
+      return {
+        ...state,
+        camera: state.camera.push(action.payload),
+      }
+
+    case types.CAMERA_FILTER_REMOVE:
+      return {
+        ...state,
+        camera: state.camera.filter(existItem => existItem !== action.payload),
       }
 
     case types.CLEAR_FILTER:

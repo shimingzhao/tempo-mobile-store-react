@@ -9,6 +9,8 @@ const storageItems = ['16 GB', '32 GB']
 const osItems = ['Android', 'iOS', 'Windows']
 const cameraItems = ['5 Mpx', '8 Mpx', '12 Mpx', '15 Mpx']
 
+let flag = ''
+
 class FiltersBolck extends Component {
 
   // toggleCheckbox = (label) => {
@@ -36,35 +38,38 @@ class FiltersBolck extends Component {
   //   />
   // )
 
-  createCheckboxes = (items) => (
-    items.map((label) =>
-      <Checkbox
-        label={label}
-        flag={items.name}
-        key={label}
-      />
+  createCheckboxes = (items, flag) => (
+    items.map((item) => {
+      // console.log(flag)
+        return (
+          <Checkbox
+            value={item}
+            key={item}
+            flag={flag}
+          />)
+      }
     )
   )
 
   render () {
     return (
       <div className='filters'>
-        <form >
+        <form>
           <div className='filter-criteria'>
             <span>Manufacturer</span>
-            {this.createCheckboxes(manufacturerItems)}
+            {this.createCheckboxes(manufacturerItems, flag='manufacturerItems')}
           </div>
           <div className='filter-criteria'>
             <span>Screen Size</span>
-            {this.createCheckboxes(storageItems)}
+            {this.createCheckboxes(storageItems, flag='storageItems')}
           </div>
           <div className='filter-criteria'>
             <span>OS</span>
-            {this.createCheckboxes(osItems)}
+            {this.createCheckboxes(osItems, flag='osItems')}
           </div>
           <div className='filter-criteria'>
             <span>Camera</span>
-            {this.createCheckboxes(cameraItems)}
+            {this.createCheckboxes(cameraItems, flag='cameraItems')}
           </div>
           <button onClick={this.props.actions.clearFilter}>Clear filters</button>
         </form>
@@ -84,7 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch: dispatch
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(FiltersBolck)
+export default connect(mapStateToProps, mapDispatchToProps)(FiltersBolck)
 
 // const FiltersBlock = () => {
 //   return (

@@ -1,52 +1,46 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {ManufacturerFilter, ScreenSizeFilter, osFilter, cameraFilter} from '../actions/filterActions'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { ManufacturerFilter, ScreenSizeFilter, osFilter, cameraFilter } from '../actions/filterActions'
 
 class Checkbox extends Component {
-  constructor() {
-    super();
-    this.state = {isChecked: false};
-    this.handleChecked = this.handleChecked.bind(this);
-  }
-
-    handleChecked = () => {
-        this.setState({isChecked: !this.state.isChecked})
-      console.log('fire')
-  // switch (flag) {
-  //   case 'manufacturer':
-  //     return ManufacturerFilter(label)
-  //     break
-  //   case 'storage':
-  //     return ScreenSizeFilter(label)
-  //     break
-  //   case 'os':
-  //     return osFilter(label)
-  //     break
-  //   case 'camera':
-  //     return cameraFilter(label)
-  //     break
-  // }
-  }
-
-
-  render() {
-    const {label} = this.props
-    if (this.state.isChecked) {
-      console.log('checked')
-    } else {
-      console.log('unchecked')
+  constructor (props) {
+    super(props)
+    this.state = {
+      isChecked: false,
+      value: ''
     }
+    // this.handleChecked = this.handleChecked.bind(this);
+  }
+
+  handleChecked (e) {
+    switch (this.props.flag) {
+      case 'manufacturerItems':
+        this.props.actions.ManufacturerFilter(e.target.value, e.target.checked)
+        break
+      case 'storageItems':
+        this.props.actions.ScreenSizeFilter(e.target.value, e.target.checked)
+        break
+      case 'osItems':
+        this.props.actions.osFilter(e.target.value, e.target.checked)
+        break
+      case 'cameraItems':
+        this.props.actions.cameraFilter(e.target.value, e.target.checked)
+        break
+    }
+  }
+
+  render () {
+    const {value} = this.props
     return (
       <label>
         <input
-          name={label}
           type="checkbox"
-          value={label}
-          checked={this.state.isChecked}
-          onChange={this.handleChecked}
+          value={value}
+          // checked={this.state.isChecked}
+          onChange={e => this.handleChecked(e)}
         />
-        {label}
+        {value}
       </label>
     )
   }
@@ -54,10 +48,10 @@ class Checkbox extends Component {
 
 const mapStateToProps = state => {
   return {
-    manufacturer: state.products_stuff.manufacturer,
-    storage: state.products_stuff.storage,
-    os: state.products_stuff.os,
-    camera: state.products_stuff.camera,
+    manufacturer: state.filter_stuff.manufacturer,
+    storage: state.filter_stuff.storage,
+    os: state.filter_stuff.os,
+    camera: state.filter_stuff.camera,
   }
 }
 

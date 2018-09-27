@@ -1,30 +1,30 @@
 import * as types from '../constants/actionTypes'
 
-export const ManufacturerFilter = (item) => dispatch => {
+export const ManufacturerFilter = (item, flag) => dispatch => {
   dispatch({
-    type: types.MANUFACTURER_FILTER,
+    type: flag ? types.MANUFACTURER_FILTER_ADD : types.MANUFACTURER_FILTER_REMOVE,
     payload: item
   })
 }
 
-export const ScreenSizeFilter = (item) => dispatch => {
+export const ScreenSizeFilter = (item, flag) => dispatch => {
   dispatch({
-    type: types.SCREENSIZE_FILTER,
+    type: flag ? types.SCREENSIZE_FILTER_ADD : types.SCREENSIZE_FILTER_REMOVE,
     payload: item
   })
 }
 
-export const osFilter = (item) => dispatch => {
+export const osFilter = (item, flag) => dispatch => {
   dispatch({
-    type: types.OS_FILTER,
+    type: flag ? types.OS_FILTER_ADD : types.OS_FILTER_REMOVE,
     payload: item
   })
 }
 
-export const cameraFilter = (item) => dispatch => {
+export const cameraFilter = (item, flag) => dispatch => {
   dispatch({
-    type: types.CAMERA_FILTER,
-    payload: item
+    type: flag ? types.CAMERA_FILTER_ADD : types.CAMERA_FILTER_REMOVE,
+    payload: {item, flag}
   })
 }
 

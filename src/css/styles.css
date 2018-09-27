@@ -106,11 +106,12 @@ header h2.tempo a {
     border: 1px solid #DBE3E7;
     border-radius: 3px;
     box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.08);
-    position: fixed;
+    /*position: fixed;*/
+    position: absolute;
     text-align: left;
     color: #2B2E31;
     /*opacity: 0;*/
-    pointer-events: none;
+    /*pointer-events: none;*/
 }
 
 .filters .filter-criteria {
@@ -158,6 +159,9 @@ header h2.tempo a {
 }
 
 .products-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     list-style: none;
     margin-left: 225px;
     max-width: 1500px;
@@ -175,7 +179,26 @@ header h2.tempo a {
     pointer-events: auto;
 }
 
-.products-list > li {
+.changeLitoDiv {
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+
+    text-align: left;
+    font: normal 12px sans-serif;
+
+    background-color: #ffffff;
+    border: 1px solid #dbe3e7;
+    border-radius: 3px;
+    box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.08);
+
+    margin: 0 12px 14px 0;
+    padding: 25px;
+}
+
+.products-list > div > li {
     box-sizing: border-box;
     display: inline-block;
     cursor: pointer;
@@ -316,6 +339,11 @@ header h2.tempo a {
 /*---------------------------
 	Single Product Page
 ----------------------------*/
+
+.largeImage {
+    max-height: 500px;
+    max-width: 800px;
+}
 
 .single-product {
     z-index: 100;
