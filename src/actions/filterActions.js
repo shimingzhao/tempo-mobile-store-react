@@ -24,7 +24,7 @@ export const osFilter = (item, flag) => dispatch => {
 export const cameraFilter = (item, flag) => dispatch => {
   dispatch({
     type: flag ? types.CAMERA_FILTER_ADD : types.CAMERA_FILTER_REMOVE,
-    payload: {item, flag}
+    payload: item
   })
 }
 

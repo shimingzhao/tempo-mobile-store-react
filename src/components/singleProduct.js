@@ -1,13 +1,21 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Modal from 'react-responsive-modal'
 import {addToCart, removeFromCart, removeAllFromCart} from '../actions/shoppingCartActions'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
+const isEmpty = (obj) => {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key))
+      return false
+  }
+  return true
+}
 
 class ProductModal extends Component {
   state = {
     open: false,
-    cartItemNum:''
+    cartItemNum: ''
   }
 
   onOpenModal = () => {
@@ -18,15 +26,21 @@ class ProductModal extends Component {
     this.setState({open: false})
   }
 
-  addToCartClick = (item) => {
-    this.props.actions.addToCart(item)
-  }
-
-  render () {
-    const {item} = this.props
+  render() {
+    const {item, filters} = this.props
+    console.log(typeof(item.specs.storage.toString()))
     const {open} = this.state
     return (
-      <div>
+      <div style={{
+        display: isEmpty(filters.manufacturer) &&
+        isEmpty(filters.storage) &&
+        isEmpty(filters.os) &&
+        isEmpty(filters.camera) ? '' :
+          filters.manufacturer.indexOf(item.specs.manufacturer) !== -1 &&
+          filters.storage.indexOf(item.specs.storage.toString()) !== -1 &&
+          filters.os.indexOf(item.specs.os) !== -1 &&
+          filters.camera.indexOf(item.specs.camera.toString()) !== -1 ? '' : 'none'
+      }}>
         <div className='changeLitoDiv'>
           <div className="product-photo" onClick={this.onOpenModal}>
             <img src={item.image.small} height="130" alt={item.name}/>
@@ -40,7 +54,8 @@ class ProductModal extends Component {
           </ul>
           <button onClick={() => {
             this.props.actions.addToCart(item)
-          }}>Buy Now!</button>
+          }}>Buy Now!
+          </button>
           <p className="product-price">{item.price}$</p>
         </div>
         <Modal open={open} onClose={this.onCloseModal} little>
@@ -55,7 +70,8 @@ class ProductModal extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart_stuff
+    cart: state.cart_stuff,
+    filters: state.filter_stuff
   }
 }
 

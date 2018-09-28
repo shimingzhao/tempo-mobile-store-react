@@ -31,16 +31,15 @@ class Checkbox extends Component {
   }
 
   render () {
-    const {value} = this.props
+    const {value,flag} = this.props
     return (
       <label>
         <input
           type="checkbox"
           value={value}
-          // checked={this.state.isChecked}
           onChange={e => this.handleChecked(e)}
         />
-        {value}
+        {flag === 'storageItems' ? value + ' GB' : flag === 'cameraItems' ? value + ' Mpx' : value}
       </label>
     )
   }

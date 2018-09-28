@@ -5,39 +5,13 @@ import { bindActionCreators } from 'redux'
 import { clearFilter } from '../actions/filterActions'
 
 const manufacturerItems = ['Apple', 'Samsung', 'HTC', 'Nokia', 'ZTE', 'Sony']
-const storageItems = ['16 GB', '32 GB']
+const storageItems = [16, 32]
 const osItems = ['Android', 'iOS', 'Windows']
-const cameraItems = ['5 Mpx', '8 Mpx', '12 Mpx', '15 Mpx']
+const cameraItems = [5, 8, 12, 15]
 
 let flag = ''
 
 class FiltersBolck extends Component {
-
-  // toggleCheckbox = (label) => {
-  //
-  //   if (this.selectedCheckboxes.has(label)) {
-  //     this.selectedCheckboxes.delete(label)
-  //   } else {
-  //     this.selectedCheckboxes.add(label)
-  //   }
-  // }
-
-  // handleFormSubmit = formSubmitEvent => {
-  //   formSubmitEvent.preventDefault()
-  //
-  //   for (const checkbox of this.selectedCheckboxes) {
-  //     console.log(checkbox, 'is selected.')
-  //   }
-  // }
-
-  // createCheckbox = label => (
-  //   <Checkbox
-  //     label={label}
-  //     // handleCheckboxChange={this.toggleCheckbox}
-  //     key={label}
-  //   />
-  // )
-
   createCheckboxes = (items, flag) => (
     items.map((item) => {
       // console.log(flag)

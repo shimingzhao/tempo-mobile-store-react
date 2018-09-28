@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Modal from 'react-responsive-modal'
-import { addToCart, removeFromCart, removeAllFromCart } from '../actions/shoppingCartActions'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {addToCart, removeFromCart, removeAllFromCart} from '../actions/shoppingCartActions'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
 const isEmpty = (obj) => {
   for (var key in obj) {
@@ -10,6 +10,10 @@ const isEmpty = (obj) => {
       return false
   }
   return true
+}
+
+function sort (items) {
+  return items.sort((a, b) => a.id < b.id)
 }
 
 class HeaderBar extends Component {
@@ -26,7 +30,23 @@ class HeaderBar extends Component {
     this.setState({open: false})
   }
 
-  componentWillUpdate (nextProps) {
+  initCartItemNum = () => {
+    if (this.props.cart) {
+      let number = 0
+      this.props.cart.map(item => {
+        number += item.quantity
+      })
+      this.setState({itemNumber: number})
+    }
+    else
+      this.setState({itemNumber: 0})
+  }
+
+  componentDidMount() {
+    this.initCartItemNum()
+  }
+
+  componentWillUpdate(nextProps) {
     if (nextProps.cart !== this.props.cart) {
       let number = 0
       nextProps.cart.map(item => {
@@ -36,10 +56,9 @@ class HeaderBar extends Component {
     }
   }
 
-  render () {
+  render() {
     const {cart} = this.props
     const {open, itemNumber} = this.state
-    console.log(itemNumber)
     let total = 0
     return (
       <header className="compact">
@@ -57,7 +76,7 @@ class HeaderBar extends Component {
           <div style={{paddingTop: '20px'}}>
             {
               !isEmpty(cart) ?
-                cart.map(item => {
+                sort(cart).map(item => {
                   total += (item.price * item.quantity)
                   return (
                     <div
@@ -71,14 +90,33 @@ class HeaderBar extends Component {
                       key={item.id}>
                       <div><img src={item.image.small} height='35px'/></div>
                       <div>{item.name}</div>
+                      <div>
+                        <button onClick={() => {
+                          this.props.actions.removeFromCart(item)
+                        }}>-
+                        </button>
+                      </div>
                       <div>{item.quantity}</div>
+                      <div>
+                        <button onClick={() => {
+                          this.props.actions.addToCart(item)
+                        }}>+
+                        </button>
+                      </div>
                       <div>$ {item.price.toFixed(2)}</div>
+                      <div>
+                        <button onClick={() => {
+                          this.props.actions.removeAllFromCart(item)
+                        }}>Remove all
+                        </button>
+                      </div>
                     </div>
                   )
                 })
                 :
                 ''}
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>Total Price:{total} </div>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end'}}>Total Price:
+              ${total.toFixed(2)} </div>
           </div>
 
         </Modal>
