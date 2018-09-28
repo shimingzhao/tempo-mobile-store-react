@@ -4,7 +4,7 @@ const initialState = {
   manufacturer: [],
   storage: [],
   os: [],
-  camera: []
+  camera: [],
 }
 
 const arrayWithoutItem = (array, item) => array.filter(arrayItem => arrayItem !== item)
@@ -56,7 +56,7 @@ export default function filterReducer (state = initialState, action) {
     case types.CAMERA_FILTER_REMOVE:
       return {
         ...state,
-        camera: [...arrayWithoutItem(state.os, action.payload)]
+        camera: [...arrayWithoutItem(state.camera, action.payload)]
       }
 
     case types.CLEAR_FILTER:
@@ -64,7 +64,7 @@ export default function filterReducer (state = initialState, action) {
         manufacturer: [],
         storage: [],
         os: [],
-        camera: []
+        camera: [],
       }
 
     default:

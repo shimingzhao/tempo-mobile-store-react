@@ -20,7 +20,6 @@ export const fetchProducts = () => {
     dispatch(fetchProductsBegin())
     return axios.get('products.json')
       .then(json => {
-        console.log(json.data)
         dispatch(fetchProductsSuccess(json.data))
         return json.data
       })

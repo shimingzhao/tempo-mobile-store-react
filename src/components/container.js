@@ -13,11 +13,13 @@ const isEmpty = (obj) => {
   return true
 }
 
-class MainPage extends Component {
+class Container extends Component {
 
   state = {
     _products: this.props.products
   }
+
+
 
   filterProducts = () => {
     const products = this.props.products
@@ -52,28 +54,14 @@ class MainPage extends Component {
     }
   }
 
-  componentDidMount () {
-    this.props.actions.fetchProducts()
-    // this.filterProducts()
-  }
-
   render () {
-
-    const {error, loading, products} = this.props
     const {_products} = this.state
-
-    if (error) {
-      return <div>Error! {error.message}</div>
-    }
-
-    if (loading) {
-      return <div>Loading...</div>
-    }
-
+    // console.log(_products)
+    // console.log(products)
     return (
       <div className="main-content">
         <FiltersBlock/>
-        <ProductList products={products}/>
+        <ProductList products={_products}/>
       </div>
     )
   }
@@ -82,16 +70,9 @@ class MainPage extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products_stuff.products,
-    loading: state.products_stuff.loading,
-    error: state.products_stuff.error,
     filters: state.filter_stuff
+    // order: state.order_stuff.order,
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({fetchProducts}, dispatch),
-  dispatch: dispatch
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage)
-
+export default connect(mapStateToProps)(Container)

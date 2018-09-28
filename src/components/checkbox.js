@@ -31,7 +31,7 @@ class Checkbox extends Component {
   }
 
   render () {
-    const {value,flag} = this.props
+    const {value,flag, products} = this.props
     return (
       <label>
         <input
@@ -47,6 +47,7 @@ class Checkbox extends Component {
 
 const mapStateToProps = state => {
   return {
+    products: state.products_stuff.products,
     manufacturer: state.filter_stuff.manufacturer,
     storage: state.filter_stuff.storage,
     os: state.filter_stuff.os,
