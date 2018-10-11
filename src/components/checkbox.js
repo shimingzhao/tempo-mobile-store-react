@@ -27,6 +27,7 @@ class Checkbox extends Component {
       case 'cameraItems':
         this.props.actions.cameraFilter(e.target.value, e.target.checked)
         break
+        
     }
   }
 
